@@ -1,0 +1,25 @@
+.sws-slot {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.sws-slot > video {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: fill !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+}
+
+.sws-hidden {
+  display: none !important;
+}
