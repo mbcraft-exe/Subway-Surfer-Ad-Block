@@ -1,5 +1,4 @@
 (() => {
-  const VIDEO_URL = browser.runtime.getURL("video/sws.webm");
   const MIN_SIZE = 30;
   const MAX_HEIGHT = 2000;
   const PENDING_TIMEOUT_MS = 3000;
@@ -23,7 +22,6 @@
   const pending = new Map();
   let queue = new Set();
   let scheduled = false;
-  let videoUrl = null;
 
   const visibility = new IntersectionObserver((entries) => {
     for (const { target, isIntersecting } of entries) {
@@ -91,14 +89,7 @@
     return !hostMatches(url.hostname, EMBED_HOSTS);
   }
 
-  function loadVideoUrl() {
-    videoUrl ??= fetch(VIDEO_URL)
-      .then((r) => r.blob())
-      .then((b) => URL.createObjectURL(b));
-    return videoUrl;
-  }
-
-  function makeVideo() {
+  function makeVideo(url) {
     const video = document.createElement("video");
     video.muted = true;
     video.loop = true;
@@ -107,11 +98,24 @@
         video.currentTime = Math.random() * video.duration;
       }
     }, { once: true });
-    loadVideoUrl().then((url) => {
-      video.src = url;
-      visibility.observe(video);
-    }).catch(() => {});
+    video.src = url;
     return video;
+  }
+
+  function makeImage(url) {
+    const img = document.createElement("img");
+    img.alt = "";
+    img.src = url;
+    return img;
+  }
+
+  // Fills the slot with a random file from video/playlist.txt (see playlist.js).
+  function fillSlot(slot) {
+    pickMedia().then(({ url, isImage }) => {
+      const media = isImage ? makeImage(url) : makeVideo(url);
+      slot.appendChild(media);
+      if (!isImage) visibility.observe(media);
+    }).catch(() => {});
   }
 
   function replaceAd(el, { w, h }) {
@@ -132,7 +136,7 @@
         slot.style.setProperty(prop, cs.getPropertyValue(prop), "important");
       }
     }
-    slot.appendChild(makeVideo());
+    fillSlot(slot);
     sizeWatcher.unobserve(el);
     el.replaceWith(slot);
   }
