@@ -22,17 +22,28 @@ To whoever reads this, if you actually put this mess into your browser, let the 
 
 Firefox only (desktop). Chrome, Edge, Brave and friends won't run it.
 
-Not sure which way to pick? Here:
+The 2-minute version, for any Firefox:
 
-| You want to... | Your Firefox | Pick |
+1. In the [latest release](https://github.com/mbcraft-exe/Subway-Surfer-Ad-Block/releases/latest), **right-click** the `.xpi` file > **Save Link As...**
+2. Go to `about:debugging#/runtime/this-firefox` > **Load Temporary Add-on...** > pick that file.
+
+It goes away when Firefox closes. Want to keep it, or lost? Pick your way and open it below:
+
+| You want to... | Your Firefox | Open |
 | --- | --- | --- |
-| Just try it | Any Firefox | [Way 1](#way-1-just-try-it-any-firefox) |
-| Keep it forever | Developer Edition, Nightly or ESR | [Way 2](#way-2-keep-it-developer-edition-nightly-esr) |
-| Keep it forever | Normal Firefox | [Way 3](#way-3-keep-it-on-normal-firefox) |
+| Just try it | Any Firefox | Way 1 |
+| Keep it forever | Developer Edition, Nightly or ESR | Way 2 |
+| Keep it forever | Normal Firefox | Way 3 |
 
-Which Firefox do I have? Menu (the 3 lines, top right) > **Help** > **About Firefox**. If it doesn't say Developer Edition or Nightly, and the version number doesn't end with `esr`, you have normal Firefox.
+<details>
+<summary><b>Which Firefox do I have?</b></summary>
 
-## Way 1: just try it (any Firefox)
+Menu (the 3 lines, top right) > **Help** > **About Firefox**. If it doesn't say Developer Edition or Nightly, and the version number doesn't end with `esr`, you have normal Firefox.
+
+</details>
+
+<details>
+<summary><b>Way 1: just try it (any Firefox)</b></summary>
 
 Takes 2 minutes. Firefox removes it when you close Firefox.
 
@@ -46,20 +57,26 @@ Takes 2 minutes. Firefox removes it when you close Firefox.
 
 Closed Firefox and it's gone? That's what temporary means. Do steps 3 to 5 again (keep the `.xpi` file), or use Way 2 or Way 3.
 
-## Way 2: keep it (Developer Edition, Nightly, ESR)
+</details>
+
+<details>
+<summary><b>Way 2: keep it (Developer Edition, Nightly, ESR)</b></summary>
 
 Normal Firefox only accepts extensions signed by Mozilla. These 3 versions let you turn that check off.
 
 1. Type `about:config` in the address bar, press Enter, click **Accept the Risk and Continue**.
 2. Search for `xpinstall.signatures.required`.
 3. Double-click it so it says `false`.
-4. Download the `.xpi` ([Way 1](#way-1-just-try-it-any-firefox), steps 1 and 2).
+4. Download the `.xpi` (Way 1, steps 1 and 2).
 5. Type `about:addons` in the address bar, then drag and drop the `.xpi` file onto that page.
 6. Click **Add**. It now survives restarts.
 
 This switch lets any unsigned extension in, so only install the ones you trust.
 
-## Way 3: keep it on normal Firefox
+</details>
+
+<details>
+<summary><b>Way 3: keep it on normal Firefox</b></summary>
 
 You ask Mozilla to sign your own copy. It's free, it stays private (nothing gets published on the add-ons store) and it takes about 10 minutes. You need a terminal, `git`, `make`, `zip`, `python3` and [Node.js](https://nodejs.org).
 
@@ -81,10 +98,15 @@ You ask Mozilla to sign your own copy. It's free, it stays private (nothing gets
 
 Signing again after a change? Raise `version` in `manifest.json` first: Mozilla never signs the same version twice.
 
-## Uninstall
+</details>
+
+<details>
+<summary><b>Uninstall</b></summary>
 
 - Way 1: close Firefox. Or `about:debugging#/runtime/this-firefox` > **Remove**.
 - Way 2 or 3: `about:addons` > the **...** next to *Subway Surfers Ad Replacer* > **Remove**.
+
+</details>
 
 # Change the video
 
@@ -182,7 +204,7 @@ You need `make`, `zip` and `python3`.
 | --- | --- |
 | `make` | builds `dist/sws-extension-<version>.xpi` |
 | `make lint` | checks the extension with Mozilla's `web-ext lint` (needs Node.js) |
-| `make sign` | gets a Mozilla-signed `.xpi` in `dist/signed/` (see [Way 3](#way-3-keep-it-on-normal-firefox)) |
+| `make sign` | gets a Mozilla-signed `.xpi` in `dist/signed/` (see Way 3 in [Install](#install)) |
 | `make update-filters` | downloads the latest EasyList into `filters/easylist.txt` (needs curl) |
 | `make clean` | deletes `build/` |
 | `make fclean` | deletes `build/` and `dist/` |
