@@ -11,7 +11,8 @@
   border: 0 !important;
 }
 
-.sws-slot > video {
+.sws-slot > video,
+.sws-slot > img {
   display: block !important;
   width: 100% !important;
   height: 100% !important;

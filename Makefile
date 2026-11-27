@@ -1,13 +1,18 @@
 NAME		:= sws-extension
 VERSION		:= $(shell python3 -c 'import json; print(json.load(open("manifest.json"))["version"])' 2>/dev/null)
 
+# Every file named in video/playlist.txt is packed (duplicates removed).
+VIDEOS		:= $(sort $(addprefix video/,$(shell tr -d '\r' < video/playlist.txt)))
+
 SRC			:= manifest.json \
 			   background.js \
 			   filters.js \
+			   playlist.js \
 			   content.js \
 			   content.css \
 			   filters/easylist.txt \
-			   video/sws.webm
+			   video/playlist.txt \
+			   $(VIDEOS)
 
 BUILD		:= build
 DIST		:= dist
