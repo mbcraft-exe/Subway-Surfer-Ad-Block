@@ -4,6 +4,11 @@ Instructions for AI coding agents (Claude Code, Codex, Cursor, Copilot...) worki
 
 This project openly mocks vibe coding. Don't prove it right: small, tested, honest changes only.
 
+# Two rules before anything else
+
+1. **ULTRACODE on.** The README says this project was made with ULTRACODE enabled, so every change gets the same treatment. Your tool has no ULTRACODE? Use its highest effort setting and say so in the pull request.
+2. **A human pushes. Always.** Never run `git commit`, `git push` or open the pull request yourself. Prepare the change, give the exact commands, and let the human you work for run them with their own GitHub account. No `Co-Authored-By` or "Generated with" lines in commits or pull requests either: the human is the contributor.
+
 # What this is
 
 A Firefox extension (Manifest V2) that blocks ads with EasyList and replaces each ad box with a random, muted, looping file from `video/playlist.txt` (Subway Surfers gameplay by default).
